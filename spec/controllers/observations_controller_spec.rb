@@ -8,11 +8,10 @@ RSpec.describe ObservationsController, type: :controller do
     end
 
     it 'returns last Observation record' do
-      5.times { Observation.create }
+      5.times { Observation.create(temperature: 1, pressure: 2, humidity: 3 ) }
       all = ActiveModelSerializers::SerializableResource.new(Observation.all, {})
 
       get :index
-      byebug
       expect(response.body).to eq all.to_json
     end
   end
