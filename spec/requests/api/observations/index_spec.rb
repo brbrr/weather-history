@@ -17,11 +17,11 @@ require 'rails_helper'
 #   end
 # end
 
-RSpec.describe 'API Users' do
-  describe 'GET /api/users' do
+RSpec.describe 'API Observations' do
+  describe 'GET /api/observations' do
     let!(:user) { create :user }
 
-    it 'returns Users' do
+    it 'returns all Observations' do
       5.times { create :observation }
       all = ActiveModelSerializers::SerializableResource.new(Observation.all, {})
       get_as_user '/api/observations'
