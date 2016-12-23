@@ -1,5 +1,5 @@
 class ObservationsController < ApplicationController
   def index
-    render json: Observation.last
+    render json: Observation.all
   end
 end
