@@ -1,25 +1,22 @@
-# README
+- [x] Создать Модель и контроллер для получения данных из базы. последний рекорд
+- [] Прирутить сериализатор для модели
+- [] Прикрутить девайс для регистрации пользователей
+- [] сделать авторизацию через doorkeeper
+- [] Доставать реальные погодные данные из погодного апи
+- [] Модифицировать контроллер и сералайзер для отдачи ВСЕХ записей
+- [] Добавить параметры запроса для выборки по дате
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+Нужно написать rails-приложение, которое является json api и реализует стандарт http://jsonapi.org/ используя https://github.com/rails-api/active_model_serializers . Для аутентификации и авторизации запросов используйте https://github.com/doorkeeper-gem/doorkeeper . Для регистрации пользователей можно использовать https://github.com/plataformatec/devise .
 
-* Ruby version
+Сам API делает вот такое: раз в час с помощью https://github.com/javan/whenever и https://github.com/lostisland/faraday сохраняет текущую погоду любого города (температура, влажность, давление) в базу данных. Модель можно назвать Observation или WeatherRecord по вашему усмотрению. Приложение при GET запросе на /api/observations будет отдавать сохранённые данные в виде json. Получить эти данные (сделать запрос) можно только c oauth токеном (вот тут и используем doorkeeper для аутентификации). Также реализуйте параметры запроса, чтобы доставать данные только за определенное время (можно использовать https://github.com/activerecord-hackery/ransack).
 
-* System dependencies
+Город выбирайте любой. Погодный API тоже можно использовать любой (к примеру, https://openweathermap.org/).
 
-* Configuration
+Пример пустого, но работающего приложения, где используется devise + doorkeeper + cancancan + dotenv https://github.com/rilian/devise-doorkeeper-cancan-api-example .
 
-* Database creation
+Постарайтесь покрыть свою домашку request тестами. Также протестируйте код, который будет брать данные о погоде с использованием https://github.com/vcr/vcr .
 
-* Database initialization
+API ключ для погодного API, данные о выбранном городе и прочие настройки приложения храните в переменных окружения с помощью https://github.com/bkeepers/dotenv .
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# weather-history
+а сервисные объекты как раз то, что нужно использовать, чтобы хранить код, который достает данные о погоде/делает поиск по записям (если не используете ransack).
