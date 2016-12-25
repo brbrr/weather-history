@@ -17,8 +17,8 @@ module Requests
   end
 
   module AuthenticationHelpers
-    def get_as_user(url, options = {})
-      get(url, params: options, headers: _user_auth_headers)
+    def get_as_user(url, options = {}, headers: _user_auth_headers)
+      get(url, params: options, headers: headers)
     end
 
     [:post, :put, :delete, :patch].each do |m|
@@ -30,19 +30,55 @@ module Requests
       end
     end
 
+    def register(email, password, confirmation: password)
+      params = {
+        user: {
+          email: email,
+          password: password,
+          password_confirmation: confirmation
+        }
+      }
+      post('/users.json', params: params.to_json, headers: _auth_headers)
+    end
+
+    def sign_in(email, password)
+      params = {
+        user: {
+          email: email,
+          password: password,
+          password_confirmation: confirmation
+        }
+      }
+      post('/users/sign_in.json', params: params.to_json, headers: _auth_headers)
+    end
+
+    def authenticate(email, password)
+      params = {
+        grant_type: 'password',
+        username: email,
+        password: password
+      }
+      post('/oauth/token', params: params.to_json, headers: _auth_headers)
+      @_access_token = Oj.load(response.body)[:access_token]
+    end
+
     private
 
-    def _user_auth_headers
+    def _auth_headers
       {
         'Content-Type' => 'application/json',
         'Accept' => 'application/json',
-        'Authorization' => "Bearer #{_access_token}",
         'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/536.5 (KHTML, like Gecko) ' \
           'Chrome/19.0.1084.56 Safari/536.5',
         'X-API-Version' => '0.0.1',
         'X-API-Client' => 'ExampleApp/TestSuite 0.0.1',
         'X-API-Device' => 'iPhone 5,1 (iOS 8.1.3)'
       }
+    end
+
+    def _user_auth_headers(access_token = _access_token)
+      @_access_token ||= access_token
+      _auth_headers.merge('Authorization' => "Bearer #{@_access_token}")
     end
 
     def _user

@@ -21,6 +21,9 @@ gem 'active_model_serializers', '~> 0.10.0'
 
 gem 'devise'
 gem 'doorkeeper'
+gem 'whenever', require: false
+gem 'faraday'
+gem 'oj'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

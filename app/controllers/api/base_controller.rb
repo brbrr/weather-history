@@ -38,6 +38,6 @@ class Api::BaseController < ApplicationController
   end
 
   def doorkeeper_unauthorized_render_options(error: nil)
-    { json: { error: '' } }
+    { json: { error: 'Not authorized!' } }
   end
 end
