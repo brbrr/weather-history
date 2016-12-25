@@ -8,8 +8,8 @@ class WeatherService < ApplicationService
   def current_weather
     @response = Faraday.get do |req|
       req.url 'http://api.openweathermap.org/data/2.5/weather'
-      req.params['q'] = 'Kiev'
-      req.params['appid'] = '70af5f9d079d100304824fafe28c8b42'
+      req.params['q'] = ENV[DEFAULT_CITY]
+      req.params['appid'] = ENV[WEATHER_API]
       req.params['units'] = 'metric'
     end
     @response.success?
