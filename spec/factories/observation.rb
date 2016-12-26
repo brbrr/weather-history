@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :observation do
-    temperature '1'
-    pressure '2'
-    humidity '3'
+    sequence(:temperature) { |n| n }
+    sequence(:pressure) { |n| n }
+    sequence(:humidity) { |n| n }
   end
 end

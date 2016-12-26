@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 RSpec.describe 'API Observations' do
   describe 'GET /api/observations' do
     let!(:user) { create :user }
