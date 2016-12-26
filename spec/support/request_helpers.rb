@@ -17,8 +17,8 @@ module Requests
   end
 
   module AuthenticationHelpers
-    def get_as_user(url, options = {}, headers: _user_auth_headers)
-      get(url, params: options, headers: headers)
+    def get_as_user(url, params: {}, headers: _user_auth_headers)
+      get(url, params: params, headers: headers)
     end
 
     [:post, :put, :delete, :patch].each do |m|
