@@ -210,7 +210,7 @@ DEPENDENCIES
   pg (~> 0.18)
   pry-byebug
   puma (~> 3.0)
-  rails
+  rails (~> 5.1)
   rspec-rails
   spring
   spring-watcher-listen (~> 2.0.0)
@@ -219,6 +219,9 @@ DEPENDENCIES
   vcr
   webmock
   whenever
+
+RUBY VERSION
+   ruby 2.3.3p222
 
 BUNDLED WITH
    1.15.2
