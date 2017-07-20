@@ -1,5 +1,5 @@
-require 'rails_helper'
+# require 'rails_helper'
 
-RSpec.describe Api::SignupController, type: :controller do
+# RSpec.describe Api::SignupController, type: :controller do
 
-end
+# end

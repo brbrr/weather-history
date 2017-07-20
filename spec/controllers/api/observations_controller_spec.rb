@@ -10,6 +10,7 @@ RSpec.describe Api::ObservationsController, type: :controller do
     end
 
     it 'returns http success' do
+      binding.pry
       get_as_user(:index)
       expect(response).to have_http_status(:success)
     end
@@ -23,7 +24,11 @@ RSpec.describe Api::ObservationsController, type: :controller do
     end
 
     context 'with time_range params' do
-      let(:serialized_list) { ActiveModelSerializers::SerializableResource.new(Observation.where(created_at: @date_range), {}) }
+      let(:serialized_list) {
+        ActiveModelSerializers::SerializableResource.new(
+          Observation.where(created_at: @date_range), {}
+        )
+      }
 
       before(:context) do
         @time1990 = Time.new(1990)
